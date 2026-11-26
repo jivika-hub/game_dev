@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/sequences/chapter1_director.gd" id="1_dir"]
+[ext_resource type="PackedScene" path="res://scenes/environment/DyingEarthEnvironment.tscn" id="2_env"]
+[ext_resource type="PackedScene" path="res://scenes/environment/Farmhouse.tscn" id="3_farm"]
+[ext_resource type="PackedScene" path="res://scenes/environment/ResearchFacility.tscn" id="4_fac"]
+[ext_resource type="PackedScene" path="res://scenes/characters/Player.tscn" id="5_plr"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DialogueBox.tscn" id="7_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/SignalPuzzleUI.tscn" id="8_puz"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="9_pau"]
+
+[node name="Chapter1World" type="Node3D"]
+script = ExtResource("1_dir")
+
+[node name="DyingEarthEnvironment" parent="." instance=ExtResource("2_env")]
+
+[node name="Farmhouse" parent="." instance=ExtResource("3_farm")]
+
+[node name="ResearchFacility" parent="." instance=ExtResource("4_fac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+
+[node name="Player" parent="." instance=ExtResource("5_plr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 42)
+
+[node name="OpeningCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 8.5, 58)
+fov = 54.0
+near = 0.1
+far = 700.0
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("7_dlg")]
+
+[node name="SignalPuzzleUI" parent="." instance=ExtResource("8_puz")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("9_pau")]

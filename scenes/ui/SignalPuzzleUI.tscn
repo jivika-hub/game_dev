@@ -1,0 +1,202 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/signal_puzzle_ui.gd" id="1_puz"]
+[ext_resource type="Script" path="res://scripts/ui/waveform_scope.gd" id="2_scope"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_puz"]
+bg_color = Color(0.04, 0.06, 0.09, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.78, 0.90, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="SignalPuzzleUI" type="CanvasLayer"]
+layer = 30
+script = ExtResource("1_puz")
+
+[node name="Overlay" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.01, 0.02, 0.03, 0.82)
+
+[node name="Center" type="CenterContainer" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Overlay/Center"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_puz")
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Overlay/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="Label" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.90, 0.98, 1)
+theme_override_font_sizes/font_size = 24
+text = "HORIZON OUTPOST 09 — GRAVITATIONAL INTERFEROMETER"
+horizontal_alignment = 1
+
+[node name="StageLabel" type="Label" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.80, 0.44, 1)
+theme_override_font_sizes/font_size = 15
+text = "HARMONIC 1 / 3 — SUB-SPATIAL CARRIER"
+horizontal_alignment = 1
+
+[node name="WaveformScope" type="Control" parent="Overlay/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(820, 230)
+layout_mode = 2
+script = ExtResource("2_scope")
+
+[node name="Legend" type="Label" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.80, 0.84, 0.92)
+theme_override_font_sizes/font_size = 13
+text = "CYAN: Anomalous Deep-Space Signal     |     AMBER / EMERALD: Your Tuned Carrier Wave"
+horizontal_alignment = 1
+
+[node name="CoherenceRow" type="HBoxContainer" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="CoherenceLabel" type="Label" parent="Overlay/Center/Panel/Margin/VBox/CoherenceRow"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.94, 0.92, 1)
+theme_override_font_sizes/font_size = 16
+text = "COHERENCE: 0.0%"
+
+[node name="CoherenceBar" type="ProgressBar" parent="Overlay/Center/Panel/Margin/VBox/CoherenceRow"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+show_percentage = false
+
+[node name="DiagnosticLabel" type="Label" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.60, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 14
+text = "INTERFEROMETER READOUT:"
+horizontal_alignment = 1
+
+[node name="FreqRow" type="HBoxContainer" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="FreqTitle" type="Label" parent="Overlay/Center/Panel/Margin/VBox/FreqRow"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Carrier Frequency"
+
+[node name="FreqSlider" type="HSlider" parent="Overlay/Center/Panel/Margin/VBox/FreqRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 6.0
+step = 0.05
+value = 2.0
+
+[node name="FreqVal" type="Label" parent="Overlay/Center/Panel/Margin/VBox/FreqRow"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+text = "2.00 Hz"
+horizontal_alignment = 2
+
+[node name="PhaseRow" type="HBoxContainer" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PhaseTitle" type="Label" parent="Overlay/Center/Panel/Margin/VBox/PhaseRow"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Gravitational Phase"
+
+[node name="PhaseSlider" type="HSlider" parent="Overlay/Center/Panel/Margin/VBox/PhaseRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 6.28
+step = 0.05
+value = 1.0
+
+[node name="PhaseVal" type="Label" parent="Overlay/Center/Panel/Margin/VBox/PhaseRow"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+text = "1.00 rad"
+horizontal_alignment = 2
+
+[node name="AmpRow" type="HBoxContainer" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="AmpTitle" type="Label" parent="Overlay/Center/Panel/Margin/VBox/AmpRow"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Harmonic Amplitude"
+
+[node name="AmpSlider" type="HSlider" parent="Overlay/Center/Panel/Margin/VBox/AmpRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.3
+max_value = 1.0
+step = 0.02
+value = 0.6
+
+[node name="AmpVal" type="Label" parent="Overlay/Center/Panel/Margin/VBox/AmpRow"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+text = "0.60 g-u"
+horizontal_alignment = 2
+
+[node name="LogLabel" type="Label" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.86, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+text = "Align the amber carrier wave with the cyan gravitational anomaly."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ButtonRow" type="HBoxContainer" parent="Overlay/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="LockBtn" type="Button" parent="Overlay/Center/Panel/Margin/VBox/ButtonRow"]
+custom_minimum_size = Vector2(280, 44)
+layout_mode = 2
+disabled = true
+theme_override_font_sizes/font_size = 16
+text = "ALIGN SIGNAL (>= 92%)"
+
+[node name="CloseBtn" type="Button" parent="Overlay/Center/Panel/Margin/VBox/ButtonRow"]
+custom_minimum_size = Vector2(190, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Step Back  [ Esc ]"

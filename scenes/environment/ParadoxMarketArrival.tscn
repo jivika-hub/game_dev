@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/environment/paradox_market_sequence.gd" id="1_seq"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="2_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DialogueBox.tscn" id="3_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="4_pau"]
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 1
+background_color = Color(0.015, 0.018, 0.036, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.18, 0.22, 0.34, 1)
+ambient_light_energy = 0.42
+tonemap_mode = 3
+tonemap_exposure = 1.08
+glow_enabled = true
+glow_intensity = 0.85
+glow_bloom = 0.28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_end"]
+bg_color = Color(0.05, 0.06, 0.09, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.74, 0.38, 0.86)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ParadoxMarketArrival" type="Node3D"]
+script = ExtResource("1_seq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="RimSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.766044, -0.321394, 0.55667, 0, 0.866025, 0.5, -0.642788, -0.383022, 0.663414, 0, 20, 15)
+light_color = Color(0.78, 0.88, 1, 1)
+light_energy = 1.35
+
+[node name="SequenceCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3.5, 44)
+fov = 56.0
+near = 0.1
+far = 800.0
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("3_dlg")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pau")]
+
+[node name="FinaleOverlay" type="CanvasLayer" parent="."]
+layer = 35
+visible = false
+
+[node name="Bg" type="ColorRect" parent="FinaleOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.04, 0.78)
+
+[node name="Center" type="CenterContainer" parent="FinaleOverlay/Bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card" type="PanelContainer" parent="FinaleOverlay/Bg/Center"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_end")
+
+[node name="Margin" type="MarginContainer" parent="FinaleOverlay/Bg/Center/Card"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="FinaleOverlay/Bg/Center/Card/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="ChapterEnd" type="Label" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.88, 0.96, 1)
+theme_override_font_sizes/font_size = 15
+text = "END OF CHAPTER I PROTOTYPE"
+horizontal_alignment = 1
+
+[node name="MainTitle" type="Label" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.80, 0.44, 1)
+theme_override_font_sizes/font_size = 38
+text = "THE PARADOX MARKET"
+horizontal_alignment = 1
+
+[node name="SummaryLabel" type="Label" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.92, 0.90, 1)
+theme_override_font_sizes/font_size = 17
+text = "Chapter I Complete."
+autowrap_mode = 2
+
+[node name="BtnRow" type="HBoxContainer" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="ReplayBtn" type="Button" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox/BtnRow"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Replay Chapter I"
+
+[node name="MenuBtn" type="Button" parent="FinaleOverlay/Bg/Center/Card/Margin/VBox/BtnRow"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Return to Main Menu"

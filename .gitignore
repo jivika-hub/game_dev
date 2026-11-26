@@ -1,0 +1,18 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Godot-specific ignores
+*.translation
+
+# Imported textures and samples are kept only if desired; .import files stay tracked
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local exports / builds
+builds/
+export/
+*.zip
+*.dmg
+*.exe
+*.pck

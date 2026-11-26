@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/environment/farmhouse_builder.gd" id="1_farm"]
+[ext_resource type="PackedScene" path="res://scenes/characters/DaughterNPC.tscn" id="2_maya"]
+
+[node name="Farmhouse" type="Node3D"]
+script = ExtResource("1_farm")
+
+[node name="DaughterNPC" parent="." instance=ExtResource("2_maya")]
+transform = Transform3D(-0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, -0.766044, 2.8, 0.3, -0.5)

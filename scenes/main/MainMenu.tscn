@@ -1,0 +1,115 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk3dy1r2repm5"]
+
+[ext_resource type="Script" path="res://scripts/sequences/main_menu.gd" id="1_menu"]
+[ext_resource type="PackedScene" path="res://scenes/environment/DyingEarthEnvironment.tscn" id="2_env"]
+[ext_resource type="PackedScene" path="res://scenes/environment/Farmhouse.tscn" id="3_farm"]
+[ext_resource type="Shader" path="res://assets/shaders/film_grade.gdshader" id="4_grade"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_menugrade"]
+shader = ExtResource("4_grade")
+shader_parameter/vignette_strength = 0.44
+shader_parameter/grain_strength = 0.024
+shader_parameter/tint_color = Color(0.12, 0.08, 0.04, 0.12)
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_menu")
+
+[node name="DyingEarthEnvironment" parent="." instance=ExtResource("2_env")]
+
+[node name="Farmhouse" parent="." instance=ExtResource("3_farm")]
+
+[node name="MenuCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 34)
+fov = 54.0
+near = 0.1
+far = 650.0
+
+[node name="MenuUI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="FilmGrade" type="ColorRect" parent="MenuUI"]
+material = SubResource("ShaderMaterial_menugrade")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="MenuUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 92
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 92
+theme_override_constants/margin_bottom = 72
+
+[node name="VBox" type="VBoxContainer" parent="MenuUI/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="YearTag" type="Label" parent="MenuUI/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.78, 0.44, 0.95)
+theme_override_font_sizes/font_size = 16
+text = "EARTH — 2089   |   CHAPTER I PROTOTYPE"
+
+[node name="GameTitle" type="Label" parent="MenuUI/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.95, 0.89, 1)
+theme_override_font_sizes/font_size = 62
+text = "THE PARADOX MARKET"
+
+[node name="Subtitle" type="Label" parent="MenuUI/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.82, 0.78, 0.92)
+theme_override_font_sizes/font_size = 20
+text = "Chapter I: The Last Harvest"
+
+[node name="Spacer" type="Control" parent="MenuUI/Margin/VBox"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="MenuUI/Margin/VBox"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="NewGameBtn" type="Button" parent="MenuUI/Margin/VBox/Buttons"]
+custom_minimum_size = Vector2(340, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Begin Chapter I"
+
+[node name="ContinueBtn" type="Button" parent="MenuUI/Margin/VBox/Buttons"]
+custom_minimum_size = Vector2(340, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Continue Saved Progress"
+
+[node name="QuitBtn" type="Button" parent="MenuUI/Margin/VBox/Buttons"]
+custom_minimum_size = Vector2(340, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+
+[node name="SaveHintLabel" type="Label" parent="MenuUI/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74, 0.76, 0.78, 0.88)
+theme_override_font_sizes/font_size = 14
+text = "No saved progress yet — start Chapter I."
+
+[node name="Spacer2" type="Control" parent="MenuUI/Margin/VBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ControlsFooter" type="Label" parent="MenuUI/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.78, 0.74, 0.85)
+theme_override_font_sizes/font_size = 14
+text = "Controls: WASD Move  •  Shift Sprint  •  Mouse Camera  •  E Interact  •  Space/Click Advance  •  Esc Pause"

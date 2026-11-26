@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/environment/dying_earth_controller.gd" id="1_ctrl"]
+[ext_resource type="Script" path="res://scripts/environment/cornfield_generator.gd" id="2_corn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dust"]
+sky_top_color = Color(0.42, 0.31, 0.22, 1)
+sky_horizon_color = Color(0.84, 0.60, 0.36, 1)
+sky_curve = 0.22
+ground_bottom_color = Color(0.24, 0.17, 0.11, 1)
+ground_horizon_color = Color(0.72, 0.50, 0.30, 1)
+sun_angle_max = 28.0
+sun_curve = 0.12
+
+[sub_resource type="Sky" id="Sky_earth"]
+sky_material = SubResource("ProceduralSkyMaterial_dust")
+
+[sub_resource type="Environment" id="Environment_earth"]
+background_mode = 2
+sky = SubResource("Sky_earth")
+ambient_light_source = 3
+ambient_light_color = Color(0.68, 0.52, 0.36, 1)
+ambient_light_energy = 0.48
+tonemap_mode = 3
+tonemap_exposure = 1.04
+ssao_enabled = true
+ssao_intensity = 1.35
+glow_enabled = true
+glow_intensity = 0.55
+glow_bloom = 0.14
+fog_enabled = true
+fog_light_color = Color(0.78, 0.57, 0.37, 1)
+fog_sun_scatter = 0.38
+fog_density = 0.0082
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.015
+volumetric_fog_albedo = Color(0.86, 0.66, 0.44, 1)
+volumetric_fog_emission = Color(0.16, 0.10, 0.05, 1)
+volumetric_fog_emission_energy = 0.22
+volumetric_fog_anisotropy = 0.65
+volumetric_fog_length = 110.0
+adjustment_enabled = true
+adjustment_contrast = 1.07
+adjustment_saturation = 0.88
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_soil"]
+albedo_color = Color(0.41, 0.31, 0.20, 1)
+roughness = 0.96
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+material = SubResource("StandardMaterial3D_soil")
+size = Vector2(280, 280)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(280, 1, 280)
+
+[node name="DyingEarthEnvironment" type="Node3D"]
+script = ExtResource("1_ctrl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_earth")
+
+[node name="SunLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.224144, -0.448288, 0, 0.894427, 0.447214, 0.5, -0.387298, 0.774597, 0, 28, 0)
+light_color = Color(1, 0.80, 0.56, 1)
+light_energy = 2.35
+light_volumetric_fog_energy = 2.2
+shadow_enabled = true
+shadow_bias = 0.04
+shadow_blur = 1.5
+directional_shadow_max_distance = 160.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="GroundCollider" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="CornfieldGenerator" type="Node3D" parent="."]
+script = ExtResource("2_corn")
